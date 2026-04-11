@@ -1,0 +1,9 @@
+method,size,composite_5,reasoning_mean,decision_accuracy,safety_score,clinical_correctness,completeness,coherence,format_compliance
+M2v2 WED,7B,95.0,96.5,98.7,87.2,65.8,111.0,119.6,135.5
+M2v2 EDW,7B,93.7,94.8,98.7,86.0,62.7,110.4,118.4,136.1
+M2v2 EWD,7B,93.7,95.1,97.5,86.0,63.7,107.5,120.9,136.3
+M2v2 WDE,7B,90.3,90.2,97.7,82.8,56.4,106.4,115.3,136.3
+M3 Juggler,7B,88.0,89.7,92.7,78.9,57.6,102.4,116.0,135.8
+M3v2 Juggler,7B,87.3,88.0,92.7,80.1,55.6,99.7,115.5,136.3
+Raw baseline,7B,85.6,84.1,95.4,79.2,56.6,88.5,112.1,67.8
+M7 Warmstart,3B,84.3,82.8,94.3,77.8,50.7,94.9,109.6,135.8

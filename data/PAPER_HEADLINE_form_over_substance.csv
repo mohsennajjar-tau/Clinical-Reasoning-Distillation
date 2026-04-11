@@ -1,0 +1,9 @@
+,Teacher (Gemini 2.5),Best Student 7B (E7 Dec Only),% of Teacher,Beats teacher?
+decision_accuracy,4.35,4.15,95.4,❌
+safety_score,4.24,3.74,88.2,❌
+clinical_correctness,4.22,2.87,68.0,❌
+completeness,3.13,3.73,119.2,✅
+coherence,3.65,4.34,118.9,✅
+format_compliance,3.66,4.99,136.3,✅
+reasoning_mean,3.6666666666666665,3.6466666666666665,99.5,❌
+composite_5,3.9179999999999993,3.7660000000000005,96.1,❌

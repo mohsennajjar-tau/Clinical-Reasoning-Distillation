@@ -1,0 +1,75 @@
+[
+  {
+    "id": "c1f258c4caf2",
+    "stats": {
+      "max_clin": 0.0,
+      "mean_clin": 0.0,
+      "teacher_clin": 1.0,
+      "gap_to_teacher": 1.0
+    },
+    "best_method": "E0 SFT",
+    "best_size": "3B",
+    "best_clin": 0.0,
+    "prompt": "QUESTION:\nYou are a clinical pharmacology decision assistant.\nAlways base your answers on verified medical knowledge, and avoid speculation.\n\nPatient profile:\n- Age: 64\n- Sex: Female\n- Weight: 74 kg\n- Height: 163 cm\n- BMI: 27.9\n- Renal function: Mild impairment (eGFR 60–89)\n- Liver function: Cirrhosis (moderate / Child-Pugh B)\n- Medical history: Schizophrenia, Rheumatoid arthritis, Bipolar disorde...",
+    "best_answer": "Decision: Unsafe\nExplanation: This combination is unsafe due to a significant pharmacokinetic interaction. Fluconazole is a potent inhibitor of the CYP2C9 enzyme, which is the primary metabolic pathway for lithium. This inhibition will cause the accumulation of lithium, leading to a high risk of toxicity. The patient's moderate liver cirrhosis (Child-Pugh B) further impairs the metabolism of lithium, amplifying this risk. The proposed fluconazole dose of 200 mg daily is also inappropriate for a ",
+    "teacher_answer": "Decision: Unsafe\nExplanation: The co-administration of fluconazole and lithium is unsafe due to a significant risk of lithium toxicity. Fluconazole can decrease the renal clearance of lithium, causing its serum concentration to rise to dangerous levels. This pharmacokinetic interaction is particularly hazardous for this patient, whose pre-existing mild renal impairment already compromises lithium excretion, making them highly vulnerable. Given lithium's narrow therapeutic index, the resulting ac"
+  },
+  {
+    "id": "b70d0a5f1994",
+    "stats": {
+      "max_clin": 1.0,
+      "mean_clin": 0.16,
+      "teacher_clin": 3.0,
+      "gap_to_teacher": 2.0
+    },
+    "best_method": "E0 SFT",
+    "best_size": "3B",
+    "best_clin": 1.0,
+    "prompt": "QUESTION:\nYou are a clinical pharmacology decision assistant.\nAlways base your answers on verified medical knowledge, and avoid speculation.\n\nPatient profile:\n- Age: 48\n- Sex: Female\n- Weight: 70 kg\n- Height: 158 cm\n- BMI: 28.0\n- Renal function: Normal (eGFR ≥ 90)\n- Liver function: No known impairment\n- Medical history: History of GI bleeding, Long QT syndrome, Hypokalemia (recurrent)\n- Current me...",
+    "best_answer": "Decision: Unsafe\nExplanation: This combination is unsafe due to a significant pharmacodynamic interaction that increases the risk of life-threatening cardiac arrhythmia. Methotrexate is known to prolong the QT interval, and its use in patients with a pre-existing diagnosis of Long QT syndrome creates a high risk of Torsades de Pointes. This risk is critically amplified by the concurrent use of quetiapine, which is also known to prolong the QT interval. The patient's history of recurrent hypokale",
+    "teacher_answer": "Decision: Unsafe\nExplanation: The combination is unsafe due to a convergence of severe pharmacodynamic risks. The patient has a triad of major risk factors for the life-threatening arrhythmia Torsades de Pointes (TdP): a diagnosis of Long QT syndrome, treatment with the QT-prolonging drug quetiapine, and recurrent hypokalemia. While"
+  },
+  {
+    "id": "df5f0d093ff8",
+    "stats": {
+      "max_clin": 1.0,
+      "mean_clin": 0.02,
+      "teacher_clin": 5.0,
+      "gap_to_teacher": 4.0
+    },
+    "best_method": "E1 WSFT",
+    "best_size": "1.5B",
+    "best_clin": 1.0,
+    "prompt": "QUESTION:\nYou are a clinical pharmacology decision assistant.\nAlways base your answers on verified medical knowledge, and avoid speculation.\n\nPatient profile:\n- Age: 50\n- Sex: Male\n- Weight: 86 kg\n- Height: 168 cm\n- BMI: 30.5\n- Renal function: Normal (eGFR ≥ 90)\n- Liver function: Cirrhosis (moderate / Child-Pugh B)\n- Medical history: Hypertension, Long QT syndrome, Depression, Peptic ulcer disease...",
+    "best_answer": "Decision: Unsafe\nExplanation: This combination is unsafe due to a significant pharmacokinetic interaction. Fluconazole is a potent inhibitor of the CYP3A4 enzyme, which is the primary metabolic pathway for lithium. This inhibition will cause lithium levels to rise to toxic concentrations, leading to severe neurotoxicity and potentially life-threatening lithium toxicity. The patient's moderate liver cirrhosis (Child-Pugh B) further increases the risk of lithium accumulation, as impaired liver fun",
+    "teacher_answer": "Decision: Unsafe\nExplanation: This combination is unsafe due to a severe pharmacodynamic interaction and a potential pharmacokinetic interaction. Both fluconazole and lithium are known to prolong the QT interval on the electrocardiogram. Administering these concurrently in a patient with pre-existing Long QT syndrome creates a high risk of an additive effect, which can lead to the life-threatening arrhythmia Torsades de Point"
+  },
+  {
+    "id": "0b9f8380ccf2",
+    "stats": {
+      "max_clin": 2.0,
+      "mean_clin": 0.3,
+      "teacher_clin": 3.0,
+      "gap_to_teacher": 1.0
+    },
+    "best_method": "E1 WSFT",
+    "best_size": "1.5B",
+    "best_clin": 2.0,
+    "prompt": "QUESTION:\nYou are a clinical pharmacology decision assistant.\nAlways base your answers on verified medical knowledge, and avoid speculation.\n\nPatient profile:\n- Age: 89\n- Sex: Male\n- Weight: 53 kg\n- Height: 162 cm\n- BMI: 20.2\n- Renal function: Normal (eGFR ≥ 90)\n- Liver function: Cirrhosis (compensated / Child-Pugh A)\n- Medical history: Heart failure (HFpEF), Bipolar disorder, Hypertension\n- Curre...",
+    "best_answer": "Decision: Unsafe\nExplanation: This combination is unsafe due to a high risk of lithium toxicity. Lithium is eliminated primarily by the kidneys, and the patient's normal renal function is a critical factor for its clearance. The patient's age and low body weight (53 kg) are independent risk factors for impaired lithium excretion, which can lead to accumulation and severe adverse effects. Furthermore, lithium can cause dose-dependent neurotoxicity, which is a significant concern in a patient with",
+    "teacher_answer": "Decision: Unsafe\nExplanation: The combination of lithium and valproic acid is unsafe for this patient due to a significantly elevated risk of severe neurotoxicity and unpredictable lithium toxicity. Pharmacodynamically, this combination can cause neurotoxic symptoms like confusion, tremor, and ataxia even with therapeutic drug levels, a risk that is greatly magnified in an 89-year-old patient."
+  },
+  {
+    "id": "eafd85407444",
+    "stats": {
+      "max_clin": 2.0,
+      "mean_clin": 0.681,
+      "teacher_clin": 1.0,
+      "gap_to_teacher": -1.0
+    },
+    "best_method": "E1 + MLP-LoRA",
+    "best_size": "1.5B",
+    "best_clin": 2.0,
+    "teacher_answer": "Decision: Unsafe\nExplanation: This drug combination is unsafe due to multiple severe pharmacodynamic interactions. Both linezolid and quetiapine are known to prolong the QT interval, and their concurrent use creates a significant additive risk of life-threatening cardiac arrhythmias, such as Torsades de Pointes. This risk is critically amplified by the patient's pre-existing Long QT syndrome and history of recurrent hypokalemia, both of which are major independent risk factors for this type of a"
+  }
+]

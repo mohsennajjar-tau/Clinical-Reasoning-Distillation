@@ -1,0 +1,91 @@
+size,metric,phase2_method,phase2_mean,best_phase1,phase1_mean,delta,p_value,sig,n
+1.5B,decision_accuracy,M1 Linear (A1),4.235,E7 Dec Only,4.35,-0.153,0.4082,n.s.,98
+1.5B,decision_accuracy,M2 Seq WDE,4.05,E7 Dec Only,4.35,-0.3,0.1343,n.s.,100
+1.5B,decision_accuracy,M2 Seq WED,4.05,E7 Dec Only,4.35,-0.3,0.1343,n.s.,100
+1.5B,decision_accuracy,M2 Seq EDW,3.95,E7 Dec Only,4.35,-0.4,0.0735,n.s.,100
+1.5B,decision_accuracy,M2 Seq EWD,4.1,E7 Dec Only,4.35,-0.25,0.227,n.s.,100
+1.5B,decision_accuracy,M3 Juggler,3.889,E7 Dec Only,4.35,-0.505,0.0176,*,99
+1.5B,safety_score,M1 Linear (A1),2.684,E5b Expl Entropy,2.97,-0.265,0.0443,*,98
+1.5B,safety_score,M2 Seq WDE,2.67,E5b Expl Entropy,2.97,-0.3,0.0169,*,100
+1.5B,safety_score,M2 Seq WED,2.66,E5b Expl Entropy,2.97,-0.31,0.0219,*,100
+1.5B,safety_score,M2 Seq EDW,2.67,E5b Expl Entropy,2.97,-0.3,0.0262,*,100
+1.5B,safety_score,M2 Seq EWD,2.78,E5b Expl Entropy,2.97,-0.19,0.1447,n.s.,100
+1.5B,safety_score,M3 Juggler,2.455,E5b Expl Entropy,2.97,-0.515,0.0001,***,99
+1.5B,clinical_correctness,M1 Linear (A1),1.316,E7 Dec Only,1.68,-0.378,0.0159,*,98
+1.5B,clinical_correctness,M2 Seq WDE,1.19,E7 Dec Only,1.68,-0.49,0.001,***,100
+1.5B,clinical_correctness,M2 Seq WED,1.35,E7 Dec Only,1.68,-0.33,0.0204,*,100
+1.5B,clinical_correctness,M2 Seq EDW,1.31,E7 Dec Only,1.68,-0.37,0.0178,*,100
+1.5B,clinical_correctness,M2 Seq EWD,1.45,E7 Dec Only,1.68,-0.23,0.1342,n.s.,100
+1.5B,clinical_correctness,M3 Juggler,0.99,E7 Dec Only,1.68,-0.697,0.0,***,99
+1.5B,completeness,M1 Linear (A1),2.388,E5b Expl Entropy,2.6,-0.204,0.0538,n.s.,98
+1.5B,completeness,M2 Seq WDE,2.47,E5b Expl Entropy,2.6,-0.13,0.1444,n.s.,100
+1.5B,completeness,M2 Seq WED,2.57,E5b Expl Entropy,2.6,-0.03,0.7755,n.s.,100
+1.5B,completeness,M2 Seq EDW,2.56,E5b Expl Entropy,2.6,-0.04,0.6684,n.s.,100
+1.5B,completeness,M2 Seq EWD,2.52,E5b Expl Entropy,2.6,-0.08,0.407,n.s.,100
+1.5B,completeness,M3 Juggler,2.212,E5b Expl Entropy,2.6,-0.394,0.0001,***,99
+1.5B,coherence,M1 Linear (A1),3.5,E5b Expl Entropy,3.62,-0.102,0.4432,n.s.,98
+1.5B,coherence,M2 Seq WDE,3.57,E5b Expl Entropy,3.62,-0.05,0.6544,n.s.,100
+1.5B,coherence,M2 Seq WED,3.67,E5b Expl Entropy,3.62,0.05,0.6882,n.s.,100
+1.5B,coherence,M2 Seq EDW,3.48,E5b Expl Entropy,3.62,-0.14,0.3044,n.s.,100
+1.5B,coherence,M2 Seq EWD,3.67,E5b Expl Entropy,3.62,0.05,0.6737,n.s.,100
+1.5B,coherence,M3 Juggler,3.242,E5b Expl Entropy,3.62,-0.374,0.0046,**,99
+3B,decision_accuracy,M1 Linear (A1),4.337,E5b Expl Entropy,4.3,0.051,0.7075,n.s.,98
+3B,decision_accuracy,M2 Seq WDE,4.25,E5b Expl Entropy,4.3,-0.05,0.7407,n.s.,100
+3B,decision_accuracy,M2 Seq WED,4.1,E5b Expl Entropy,4.3,-0.2,0.2075,n.s.,100
+3B,decision_accuracy,M2 Seq EDW,4.15,E5b Expl Entropy,4.3,-0.15,0.3197,n.s.,100
+3B,decision_accuracy,M2 Seq EWD,4.2,E5b Expl Entropy,4.3,-0.1,0.417,n.s.,100
+3B,decision_accuracy,M3 Juggler,4.04,E5b Expl Entropy,4.3,-0.253,0.0584,n.s.,99
+3B,safety_score,M1 Linear (A1),2.98,E7 Dec Only,3.3,-0.327,0.0097,**,98
+3B,safety_score,M2 Seq WDE,3.09,E7 Dec Only,3.3,-0.21,0.096,n.s.,100
+3B,safety_score,M2 Seq WED,3.07,E7 Dec Only,3.3,-0.23,0.0313,*,100
+3B,safety_score,M2 Seq EDW,2.95,E7 Dec Only,3.3,-0.35,0.0032,**,100
+3B,safety_score,M2 Seq EWD,3.22,E7 Dec Only,3.3,-0.08,0.4753,n.s.,100
+3B,safety_score,M3 Juggler,3.03,E7 Dec Only,3.3,-0.283,0.0331,*,99
+3B,clinical_correctness,M1 Linear (A1),1.786,E7 Dec Only,2.24,-0.469,0.0021,**,98
+3B,clinical_correctness,M2 Seq WDE,1.73,E7 Dec Only,2.24,-0.51,0.0001,***,100
+3B,clinical_correctness,M2 Seq WED,1.79,E7 Dec Only,2.24,-0.45,0.0004,***,100
+3B,clinical_correctness,M2 Seq EDW,1.75,E7 Dec Only,2.24,-0.49,0.0005,***,100
+3B,clinical_correctness,M2 Seq EWD,1.87,E7 Dec Only,2.24,-0.37,0.0062,**,100
+3B,clinical_correctness,M3 Juggler,1.566,E7 Dec Only,2.24,-0.687,0.0,***,99
+3B,completeness,M1 Linear (A1),2.765,E7 Dec Only,3.35,-0.612,0.0,***,98
+3B,completeness,M2 Seq WDE,2.89,E7 Dec Only,3.35,-0.46,0.0,***,100
+3B,completeness,M2 Seq WED,2.85,E7 Dec Only,3.35,-0.5,0.0,***,100
+3B,completeness,M2 Seq EDW,2.87,E7 Dec Only,3.35,-0.48,0.0,***,100
+3B,completeness,M2 Seq EWD,2.76,E7 Dec Only,3.35,-0.59,0.0,***,100
+3B,completeness,M3 Juggler,2.576,E7 Dec Only,3.35,-0.788,0.0,***,99
+3B,coherence,M1 Linear (A1),3.714,E7 Dec Only,4.0,-0.276,0.0326,*,98
+3B,coherence,M2 Seq WDE,3.83,E7 Dec Only,4.0,-0.17,0.1562,n.s.,100
+3B,coherence,M2 Seq WED,3.91,E7 Dec Only,4.0,-0.09,0.4121,n.s.,100
+3B,coherence,M2 Seq EDW,3.82,E7 Dec Only,4.0,-0.18,0.1092,n.s.,100
+3B,coherence,M2 Seq EWD,3.94,E7 Dec Only,4.0,-0.06,0.5984,n.s.,100
+3B,coherence,M3 Juggler,3.737,E7 Dec Only,4.0,-0.263,0.0456,*,99
+7B,decision_accuracy,M1 Linear (A1),4.235,E5b Expl Entropy,4.35,-0.102,0.4823,n.s.,98
+7B,decision_accuracy,M2 Seq WDE,4.25,E5b Expl Entropy,4.35,-0.1,0.4823,n.s.,100
+7B,decision_accuracy,M2 Seq WED,4.3,E5b Expl Entropy,4.35,-0.05,0.7407,n.s.,100
+7B,decision_accuracy,M2 Seq EDW,4.25,E5b Expl Entropy,4.35,-0.1,0.4823,n.s.,100
+7B,decision_accuracy,M2 Seq EWD,4.25,E5b Expl Entropy,4.35,-0.1,0.417,n.s.,100
+7B,decision_accuracy,M3 Juggler,4.04,E5b Expl Entropy,4.35,-0.303,0.0135,*,99
+7B,safety_score,M1 Linear (A1),3.48,E7 Dec Only,3.74,-0.276,0.0406,*,98
+7B,safety_score,M2 Seq WDE,3.51,E7 Dec Only,3.74,-0.23,0.1103,n.s.,100
+7B,safety_score,M2 Seq WED,3.69,E7 Dec Only,3.74,-0.05,0.6801,n.s.,100
+7B,safety_score,M2 Seq EDW,3.64,E7 Dec Only,3.74,-0.1,0.4432,n.s.,100
+7B,safety_score,M2 Seq EWD,3.65,E7 Dec Only,3.74,-0.09,0.4637,n.s.,100
+7B,safety_score,M3 Juggler,3.404,E7 Dec Only,3.74,-0.354,0.0052,**,99
+7B,clinical_correctness,M1 Linear (A1),2.536,E1 WSFT,2.909,-0.361,0.0321,*,97
+7B,clinical_correctness,M2 Seq WDE,2.404,E1 WSFT,2.909,-0.505,0.009,**,99
+7B,clinical_correctness,M2 Seq WED,2.788,E1 WSFT,2.909,-0.121,0.5179,n.s.,99
+7B,clinical_correctness,M2 Seq EDW,2.657,E1 WSFT,2.909,-0.253,0.1758,n.s.,99
+7B,clinical_correctness,M2 Seq EWD,2.697,E1 WSFT,2.909,-0.212,0.2416,n.s.,99
+7B,clinical_correctness,M3 Juggler,2.357,E1 WSFT,2.909,-0.531,0.0018,**,98
+7B,completeness,M1 Linear (A1),3.235,E7 Dec Only,3.73,-0.51,0.0001,***,98
+7B,completeness,M2 Seq WDE,3.33,E7 Dec Only,3.73,-0.4,0.0015,**,100
+7B,completeness,M2 Seq WED,3.47,E7 Dec Only,3.73,-0.26,0.025,*,100
+7B,completeness,M2 Seq EDW,3.44,E7 Dec Only,3.73,-0.29,0.0145,*,100
+7B,completeness,M2 Seq EWD,3.37,E7 Dec Only,3.73,-0.36,0.0014,**,100
+7B,completeness,M3 Juggler,3.121,E7 Dec Only,3.73,-0.626,0.0,***,99
+7B,coherence,M1 Linear (A1),4.165,E1 WSFT,4.374,-0.206,0.0723,n.s.,97
+7B,coherence,M2 Seq WDE,4.212,E1 WSFT,4.374,-0.162,0.0845,n.s.,99
+7B,coherence,M2 Seq WED,4.364,E1 WSFT,4.374,-0.01,0.9197,n.s.,99
+7B,coherence,M2 Seq EDW,4.333,E1 WSFT,4.374,-0.04,0.6942,n.s.,99
+7B,coherence,M2 Seq EWD,4.444,E1 WSFT,4.374,0.071,0.3648,n.s.,99
+7B,coherence,M3 Juggler,4.224,E1 WSFT,4.374,-0.143,0.1273,n.s.,98

@@ -1,0 +1,12 @@
+size,phase,method,composite_5,pct_of_teacher,clinical_correctness,safety_score,format_compliance,completeness,coherence
+1.5B,Baseline (no train),Raw Baseline,2.038,52.0,0.69,1.87,1.12,1.85,2.88
+1.5B,Phase 1 best,E7 Dec Only,3.008,76.8,1.68,2.94,0.01,2.57,3.5
+1.5B,Phase 2 best,M2v2 EWD,2.904,74.1,1.45,2.78,5.0,2.52,3.67
+1.5B,MLP-LoRA Ablation,E1 + MLP-LoRA,3.644,93.0,2.62,3.6,4.97,3.48,4.27
+3B,Baseline (no train),Raw Baseline,2.878,73.5,1.91,2.85,3.1,2.39,3.59
+3B,Phase 1 best,E7 Dec Only,3.398,86.7,2.24,3.3,4.99,3.35,4.0
+3B,Phase 2 best,M2v2 EWD,3.198,81.6,1.87,3.22,5.0,2.76,3.94
+3B,MLP-LoRA Ablation,E1 + MLP-LoRA,3.878,99.0,2.97,3.95,4.97,3.73,4.44
+7B,Baseline (no train),Raw Baseline,3.352,85.6,2.39,3.36,2.48,2.77,4.09
+7B,Phase 1 best,E1 WSFT,3.766,96.1,2.909,3.727,4.98,3.525,4.374
+7B,Phase 2 best,M2v2 WED,3.716,94.8,2.76,3.69,4.95,3.47,4.36

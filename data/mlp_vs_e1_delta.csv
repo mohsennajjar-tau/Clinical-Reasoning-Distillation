@@ -1,0 +1,3 @@
+size,decision_accuracy_e1,decision_accuracy_mlp,decision_accuracy_delta,safety_score_e1,safety_score_mlp,safety_score_delta,clinical_correctness_e1,clinical_correctness_mlp,clinical_correctness_delta,completeness_e1,completeness_mlp,completeness_delta,coherence_e1,coherence_mlp,coherence_delta,format_compliance_e1,format_compliance_mlp,format_compliance_delta,reasoning_mean_e1,reasoning_mean_mlp,reasoning_mean_delta,composite_5_e1,composite_5_mlp,composite_5_delta
+1.5B,4.192,4.25,0.058,2.869,3.6,0.731,1.424,2.62,1.196,2.566,3.48,0.914,3.545,4.27,0.725,4.98,4.97,-0.01,2.512,3.457,0.945,2.919,3.644,0.725
+3B,4.242,4.3,0.058,3.131,3.95,0.819,1.949,2.97,1.021,2.879,3.73,0.851,3.929,4.44,0.511,4.949,4.97,0.021,2.919,3.713,0.794,3.226,3.878,0.652

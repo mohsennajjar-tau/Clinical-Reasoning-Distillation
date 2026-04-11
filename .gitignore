@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+*.egg-info/
+.pytest_cache/
+
+# Windows
+desktop.ini
+Thumbs.db
+
+# Environments
+venv/
+env/
+.venv/
+.env
+
+# === DATA — TRAINING + LARGE FILES ===
+# Training data (too large + contains teacher logprobs)
+
+data/clinical_pharm_teacher_topk_gemini25pro*.jsonl
+data/clinical_pharm_teacher_train_*.jsonl
+data/clinical_pharm_prompts_*.jsonl
+
+# Inference output JSONs (regenerable)
+data/*_inference_*.json
+
+# === DATA — MODEL CHECKPOINTS (LoRA adapters) ===
+# All model checkpoint directories under data/
+data/cw_wsft_runs/
+data/e5a_decision_entropy_sft/
+data/e5b_explanation_entropy_sft/
+data/e7_decision_only_sft/
+
+# Cache and old runs
+data/openfda_cache/
+data/old_runs/
+
+# === RUNS DIRECTORY (all checkpoints, ~6.6 GB) ===
+runs/
+
+# === KEEP THESE (explicitly include despite parent ignore) ===
+!data/*.csv
+!data/*.png
+!data/judge__*.jsonl
+!data/clinical_pharm_splits_random_8k_1k_1k_seed42.json
+!data/clinical_pharm_test_ids_seed42.txt
+!data/clinical_pharm_train_ids_seed42.txt
+
+!data/clinical_pharm_val_ids_seed42.txt
+
+# Don't commit copyrighted papers
+Relevant papers/
+
+# Misc
+inventory_output.txt
+*.log
