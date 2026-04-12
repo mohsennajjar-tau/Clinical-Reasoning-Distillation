@@ -1,4 +1,4 @@
-# Medical Distillation
+# Clinical Reasoning Distillation
 
 This repository accompanies our paper investigating what knowledge distillation transfers from large to small language models in safety-critical domains.
 
