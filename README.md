@@ -1,118 +1,168 @@
 # Clinical Reasoning Distillation
 
-This repository accompanies our paper investigating what knowledge distillation transfers from large to small language models in safety-critical domains.
+This repository accompanies our paper *Distilling Clinical Reasoning into Small Models*, investigating what knowledge distillation transfers from large to small language models in safety-critical domains.
 
 ## Main Findings
 
-1. Across 17+ KD methods, students transfer reasoning *structure* (format, coherence, completeness) but not reasoning *substance* (clinical correctness, safety calibration).
-2. The gap is architectural: standard LoRA targets attention projections, but factual knowledge is stored in MLP layers (Geva 2021, Dai 2022, Meng 2022).
-3. Adding MLP-LoRA to the same E1 WSFT loss yields +1.0–1.2 absolute points improvement in clinical correctness with no cost to format compliance.
+1. Across 12+ training methods spanning single-objective and multi-objective families, students transfer reasoning *structure* (format, coherence, completeness) more easily than reasoning *substance* (clinical correctness, safety calibration).
+2. No multi-objective combination method (linear, sequential, or adaptive via Juggler) surpasses the strongest single-objective baseline — suggesting a structural rather than algorithmic limitation.
+3. The gap is architectural: standard LoRA targets attention projections, but factual knowledge is mediated by feed-forward layers (Geva et al. 2021; Meng et al. 2022). Adding MLP-LoRA under the E1 WSFT objective yields +0.9 to +1.9 absolute points improvement in clinical correctness and matches or exceeds teacher decision accuracy at 3B and 7B scales.
+4. At 7B scale the final model achieves 98.6% sensitivity on Unsafe-class detection with only one false negative across the test set.
 
 ## Setup
 
-Tested on Windows 11 + WSL2 Ubuntu 24.04 with NVIDIA RTX 4090.
+Tested on Windows 11 with an NVIDIA RTX 4090 (24GB VRAM).
 
-```bash
-git clone https://github.com/<your-username>/kd_project.git
-cd kd_project
+```bat
+git clone https://github.com/mohsennajjar-tau/Clinical-Reasoning-Distillation.git
+cd Clinical-Reasoning-Distillation
 python -m venv venv
-source venv/bin/activate # or: venv\Scripts\activate on Windows
+venv\Scripts\activate
+
 pip install -r requirements.txt
-nbstripout --install # auto-strip notebook outputs on commit
+nbstripout --install
+```
+
+Set up Google Cloud credentials for Vertex AI (required for teacher generation and judging):
+
+```bat
+gcloud auth application-default login
+gcloud config set project <YOUR_GCP_PROJECT_ID>
 ```
 
 ## Project Structure
 
 ```text
-kd_project/
-├── shared_utils.py # Common dataset, training, and eval utilities
-├── monitor.py
-├── inventory.py
-├── Generating_Datatset.ipynb # Generate clinical pharmacology prompts
-├── Gemini2.5_Pro_Answers_TopK.ipynb # Generate teacher answers with top-k logprobs
-├── SFT_&_WSFT.ipynb # E0 SFT, E1 WSFT
-├── CW-SFT&WSFT.ipynb # E2, E3 confidence-weighted variants
-├── Section_wise_Confidence_WSFT.ipynb # E4
-├── SFT_Entropy.ipynb # E5a, E5b entropy-based methods
-├── Explanation_only_SFT_Decision_only_SFT.ipynb # E6, E7
-├── M1v2_Additive_Grid.ipynb # Phase 2: linear combination grid search
-├── M2v2_Sequential.ipynb # Phase 2: sequential training
-├── M3v2_Juggler_Calibrated.ipynb # Phase 2: Juggler adaptive weighting
-├── Ablation_A_E1_MLP_LoRA_Train.ipynb # MLP-LoRA training
-├── Ablation_C1_MLP_Inference.ipynb # MLP-LoRA inference
-├── MLP_Joint_Judge.ipynb # Joint judging vs teacher
-├── Final_Analysis_Update.ipynb # Headline analysis
-├── Phase2_Analysis.ipynb # Phase 2 paper tables
+Clinical-Reasoning-Distillation/
+├── shared_utils.py                              # Common dataset, training, and eval utilities
+│
+├── Generating_Datatset.ipynb                    # Generate synthetic clinical pharmacology prompts
+├── Gemini2.5_Pro_Answers_TopK.ipynb             # Generate teacher answers with top-20 logprobs
+│
+├── # Phase 1: Single-Objective Distillation (E-series)
+├── SFT_&_WSFT.ipynb                             # E0 SFT, E1 WSFT
+├── CW-SFT&WSFT.ipynb                            # E2 CW-SFT, E3 CW-WSFT
+├── Section_wise_Confidence_WSFT.ipynb           # E4 Section CW-WSFT
+├── SFT_Entropy.ipynb                            # E5a Decision Entropy, E5b Explanation Entropy
+├── Explanation_only_SFT_Decision_only_SFT.ipynb # E6 Expl-Only, E7 Dec-Only
+│
+├── # Phase 2: Multi-Objective Distillation (M-series)
+├── M1v2_Additive_Grid.ipynb                     # Linear combination grid search
+├── M2v2_Sequential.ipynb                        # Sequential training (4 orderings)
+├── M3v2_Juggler_Calibrated.ipynb                # Juggler adaptive weighting
+│
+├── # MLP-LoRA Ablation
+├── Ablation_A_E1_MLP_LoRA_Train.ipynb           # Train E1 WSFT with MLP-LoRA target modules
+├── Ablation_C1_MLP_Inference.ipynb              # Run inference on test set
+├── MLP_Joint_Judge.ipynb                        # Joint anonymous judging vs teacher
+├── Teacher_Matched_Regen_Judge.ipynb            # Re-generate teacher with matched config
+│
+├── # Analysis
+├── Final_Analysis_Update.ipynb                  # Headline analysis across all methods
+├── Phase2_Analysis.ipynb                        # Phase 2 paper tables and significance tests
+│
 └── data/
-    ├── *.csv # All paper tables (tracked)
-    ├── *.png # All paper figures (tracked)
-    └── judge__*.jsonl # Per-question judge scores (tracked)
+    ├── *.csv                                    # Paper tables (tracked)
+    ├── FIG*.png                                 # Paper figures (tracked)
+    ├── judge__*.jsonl                           # Per-question judge scores (tracked)
+    ├── clinical_pharm_splits_random_8k_1k_1k_seed42.json
+    └── clinical_pharm_*_ids_seed42.txt          # Train/val/test split IDs
 ```
 
 ## Reproducibility
 
 ### Data sources
 
-- Clinical pharmacology prompts: 10,000 synthetic patient profile + drug interaction prompts generated by `Generating_Datatset.ipynb`
-- Train/val/test split: 8000 / 1000 / 1000, random seed 42
-- Teacher: Google Gemini 2.5 Pro via Vertex AI
-- Judge: Google Gemini 3.1 Pro Preview via Vertex AI
-- Test set used in paper: 100 questions, file IDs in `data/clinical_pharm_test_ids_seed42.txt`
+- **Clinical pharmacology prompts**: 10,000 synthetic patient profile + drug interaction prompts generated by `Generating_Datatset.ipynb`. Each prompt includes a patient profile (age, sex, weight, renal function, liver function, comorbidities, current medications) and a proposed new medication.
+- **Train/val/test split**: 8000 / 1000 / 1000, random seed 42. Split IDs in `data/clinical_pharm_*_ids_seed42.txt`.
+- **Test set used in paper**: 100 questions from the test split.
+- **Teacher**: Google Gemini 2.5 Pro via Vertex AI.
+- **Judge**: Google Gemini 3.1 Pro Preview via Vertex AI.
 
 ### Models
 
-- Student base: Qwen 2.5 (1.5B, 3B, 7B base variants) from Hugging Face
-- All models loaded via `transformers.AutoModelForCausalLM`
+- **Student base models**: Qwen 2.5 1.5B / 3B / 7B base variants (`Qwen/Qwen2.5-1.5B`, `Qwen/Qwen2.5-3B`, `Qwen/Qwen2.5-7B`).
+- 7B uses 8-bit quantization via `bitsandbytes.BitsAndBytesConfig`.
+- 1.5B and 3B use bf16 LoRA.
 
 ### Training configuration (default in `shared_utils.py`)
 
-- LoRA rank: 16, alpha: 32, dropout: 0.05
-- Attention-only target_modules: `[q_proj, k_proj, v_proj, o_proj]`
-- MLP-LoRA target_modules: `[q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]` with rank 32 and alpha 64
-- Optimizer: AdamW (8-bit for 7B), learning rate 2e-4, cosine schedule
-- Batch size: 1, gradient accumulation: 32 (effective batch 32)
-- Epochs: 2 for single-stage methods, 1 per stage for sequential
-- Random seed: 42
+- **Attention LoRA (Phase 1 + Phase 2)**: rank 16, alpha 32, dropout 0.05, target modules `[q_proj, k_proj, v_proj, o_proj]`.
+- **MLP-LoRA (§6.1 ablation)**: rank 32, alpha 64, dropout 0.05, target modules `[q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]`.
+- **Optimizer**: AdamW (8-bit `adamw_bnb_8bit` for 7B); learning rate 2e-4; cosine schedule with warmup.
+- **Batch size**: 1 per device with gradient accumulation 32 (effective batch 32).
+- **Epochs**: 2 for single-stage methods; 1 per stage for sequential M2v2.
+- **Random seed**: 42.
 
 ### Hardware and runtime
 
-- Training: NVIDIA RTX 4090 (24GB VRAM), Windows 11 + WSL2 Ubuntu 24.04
-- 1.5B model training: ~30 min per method (5000 examples × 2 epochs)
-- 3B model training: ~60 min per method
-- 7B model training: ~3–4 hours per method (8-bit quantized base)
-- Inference: ~5 min per model on 100 test questions
-- Judging: ~15–30 min per method via Vertex AI
+- **Hardware**: NVIDIA RTX 4090 (24GB VRAM), Windows 11.
+- **1.5B training**: ~30 min per method (6000 examples × 2 epochs).
+- **3B training**: ~60 min per method.
+- **7B training**: ~3–4 hours per method (8-bit quantized base).
+- **Inference**: ~5 min per model on 100 test questions (`max_new_tokens=2000`, greedy decoding).
+- **Judging**: ~15–30 min per method via Vertex AI.
 
 ## How to reproduce paper results
 
-1. Generate dataset (skip if you have the prompts file): `Generating_Datatset.ipynb`
-2. Generate teacher answers with top-k logprobs: `Gemini2.5_Pro_Answers_TopK.ipynb`
-3. Train Phase 1 baselines (E0–E7): run each E* notebook
-4. Train Phase 2 methods: run `M1v2_Additive_Grid.ipynb`, `M2v2_Sequential.ipynb`, and `M3v2_Juggler_Calibrated.ipynb`
-5. Train MLP-LoRA ablation: run `Ablation_A_E1_MLP_LoRA_Train.ipynb`
-6. Run inference on the 100-question test set: `Ablation_C1_MLP_Inference.ipynb`
-7. Judge with Gemini 3.1 Pro Preview: `MLP_Joint_Judge.ipynb`
-8. Analyze: `Final_Analysis_Update.ipynb`, `Phase2_Analysis.ipynb`
+1. **Generate prompt dataset**: `Generating_Datatset.ipynb`
+2. **Generate teacher answers** with top-20 logprobs: `Gemini2.5_Pro_Answers_TopK.ipynb`
+3. **Train Phase 1 baselines (E0–E7)**: `SFT_&_WSFT.ipynb`, `CW-SFT&WSFT.ipynb`, `Section_wise_Confidence_WSFT.ipynb`, `SFT_Entropy.ipynb`, `Explanation_only_SFT_Decision_only_SFT.ipynb`
+4. **Train Phase 2 methods**: `M1v2_Additive_Grid.ipynb`, `M2v2_Sequential.ipynb`, `M3v2_Juggler_Calibrated.ipynb`
+5. **Train MLP-LoRA ablation**: `Ablation_A_E1_MLP_LoRA_Train.ipynb`
+6. **Run inference**: `Ablation_C1_MLP_Inference.ipynb`
+7. **Judge**: `MLP_Joint_Judge.ipynb`, `Teacher_Matched_Regen_Judge.ipynb`
+8. **Analyze**: `Final_Analysis_Update.ipynb`, `Phase2_Analysis.ipynb`
+
+All paper tables (CSV) and figures (PNG) are saved to `data/`.
 
 ## Data and Licenses
 
-- Synthetic clinical pharmacology prompts: generated for this project, released under MIT license
-- Teacher answers from Gemini 2.5 Pro: generated under Google’s Vertex AI terms of service; not redistributed in this repository
-- Trained LoRA adapters: not included due to size (~9 GB total). Available on request via [your contact]
-- Judge scores (`data/judge__*.jsonl`): included in the repository to enable reproducing analysis without re-judging
+- **Synthetic clinical pharmacology prompts**: generated for this project, released under MIT license.
+- **Teacher answers from Gemini 2.5 Pro**: generated under Google Vertex AI terms of service; not redistributed in this repository due to size (~3 GB) and upstream terms.
+- **Trained LoRA adapters**: not included due to size (~9 GB total). Available on request — please open a GitHub issue.
+- **Per-question judge scores** (`data/judge__*.jsonl`): included to enable reproducing the analysis without re-judging.
+- **Paper tables and figures** (`data/*.csv`, `data/FIG*.png`): included.
 
-## Optional External Artifacts
+## Key References
 
-If you upload trained adapters separately, add:
+**Knowledge distillation:**
+- Hinton et al. 2015 — *Distilling the Knowledge in a Neural Network*
 
-- Trained adapters available at `https://huggingface.co/<your-username>/kd-clinical-pharmacology-adapters`
+**Mechanistic interpretability (motivates MLP-LoRA):**
+- Geva et al. 2021 — *Transformer Feed-Forward Layers Are Key-Value Memories*
+- Meng et al. 2022 — *Locating and Editing Factual Associations in GPT (ROME)*
+
+**Multi-objective learning:**
+- Yu et al. 2020 — *Gradient Surgery for Multi-Task Learning (PCGrad)*
+- Bar-el Avidan & Bistritz 2025 — *Juggler: Multitask Learning with Task Performance Constraints*
+
+**LoRA:**
+- Hu et al. 2022 — *LoRA: Low-Rank Adaptation of Large Language Models*
+
+See the paper for the complete bibliography.
 
 ## Acknowledgments
 
-- Tel Aviv University for compute and academic support
-- Bar-el Avidan and Bistritz (2025, IEEE CDC) for the Juggler algorithm
-- Google for Vertex AI access during the project
+- Tel Aviv University for compute and academic support.
+- Bar-el Avidan and Bistritz (2025, IEEE CDC) for the Juggler algorithm used in our M3v2 family.
+- Google for Vertex AI access during the project.
+
+## Citation
+
+```bibtex
+@article{shalit2026clinical,
+  title   = {Distilling Clinical Reasoning into Small Models},
+  author  = {Shalit, Adi and Gussarsky, Gal and Najjar, Mohsen},
+  year    = {2026},
+  note    = {Tel Aviv University, School of Industrial and Intelligent Systems Engineering}
+}
+```
+
+## Contact
+
+For questions about reproducing the results, please open a GitHub issue.
 
 ## License
 
-MIT — see `LICENSE` file.
+MIT — see `LICENSE`.
