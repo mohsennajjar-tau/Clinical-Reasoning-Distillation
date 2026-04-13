@@ -35,9 +35,14 @@ gcloud config set project <YOUR_GCP_PROJECT_ID>
 ```text
 Clinical-Reasoning-Distillation/
 ├── shared_utils.py                              # Common dataset, training, and eval utilities
+├── requirements.txt
+├── LICENSE
+├── README.md
+├── Distilling Clinical Reasoning into Small Models.pdf   # The paper
 │
 ├── Generating_Datatset.ipynb                    # Generate synthetic clinical pharmacology prompts
-├── Gemini2.5_Pro_Answers_TopK.ipynb             # Generate teacher answers with top-20 logprobs
+├── Gemini2.5._Pro_Answers_TopK.ipynb            # Generate teacher training answers with top-20 logprobs
+├── Generate_Teacher_Answers_Gemini_2.5_Eval.ipynb   # Generate teacher eval answers
 │
 ├── # Phase 1: Single-Objective Distillation (E-series)
 ├── SFT_&_WSFT.ipynb                             # E0 SFT, E1 WSFT
@@ -51,20 +56,21 @@ Clinical-Reasoning-Distillation/
 ├── M2v2_Sequential.ipynb                        # Sequential training (4 orderings)
 ├── M3v2_Juggler_Calibrated.ipynb                # Juggler adaptive weighting
 │
-├── # MLP-LoRA Ablation
+├── # MLP-LoRA Ablation (Section 6)
 ├── Ablation_A_E1_MLP_LoRA_Train.ipynb           # Train E1 WSFT with MLP-LoRA target modules
-├── Ablation_C1_MLP_Inference.ipynb              # Run inference on test set
+├── Ablation_C1_MLP_Inference.ipynb              # Run MLP-LoRA inference on test set
+├── Ablation_C2_Judge_Analysis.ipynb             # Judge MLP-LoRA outputs
 ├── MLP_Joint_Judge.ipynb                        # Joint anonymous judging vs teacher
-├── Teacher_Matched_Regen_Judge.ipynb            # Re-generate teacher with matched config
+├── 7B_MLP_Confusion_Matrix.ipynb                # Appendix D confusion matrix analysis
 │
-├── # Analysis
+├── # Evaluation and Analysis
+├── E_Series_Judge_g31.ipynb                     # Judge Phase 1 E-series with Gemini 3.1
 ├── Final_Analysis_Update.ipynb                  # Headline analysis across all methods
 ├── Phase2_Analysis.ipynb                        # Phase 2 paper tables and significance tests
 │
 └── data/
-    ├── *.csv                                    # Paper tables (tracked)
-    ├── FIG*.png                                 # Paper figures (tracked)
-    ├── judge__*.jsonl                           # Per-question judge scores (tracked)
+    ├── *.csv                                    # Paper tables
+    ├── judge__*.jsonl                           # Per-question judge scores
     ├── clinical_pharm_splits_random_8k_1k_1k_seed42.json
     └── clinical_pharm_*_ids_seed42.txt          # Train/val/test split IDs
 ```
